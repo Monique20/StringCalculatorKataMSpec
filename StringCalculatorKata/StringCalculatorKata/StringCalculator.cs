@@ -16,8 +16,7 @@ namespace StringCalculatorKata
             }
 
             var splitNumbers = SplitNumbers(numbers);
-            var listOfNumbers = AddToList(splitNumbers);
-
+            var listOfNumbers = AddNumbersToList(splitNumbers);
             CheckForNegativeNumbers(listOfNumbers);
 
             return listOfNumbers.Sum();
@@ -32,24 +31,19 @@ namespace StringCalculatorKata
             }
         }
 
-        private static List<int> AddToList(string[] splitNumbers)
-        {
-            List<int> listOfNumbers = AddNumbersToList(splitNumbers);
-
-            return listOfNumbers.Where(x => x <= 1000).ToList();
-        }
-
         private static List<int> AddNumbersToList(string[] splitNumbers)
         {
             var listOfNumbers = new List<int>();
-            var numb = splitNumbers.Select(x => int.Parse(x));
+            var numb = splitNumbers.Select(number => int.Parse(number));
             listOfNumbers.AddRange(numb);
-            return listOfNumbers;
+
+            return listOfNumbers.Where(n => n <= 1000).ToList();
         }
 
         private static string[] SplitNumbers(string numbers)
         {
-            return numbers.Split(new[] { ",", "\n", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            return numbers.Split(new[] { ",", "\n", "/", ";", "[", "*", "%", "#", "!", "&", "]", "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
+
 }
